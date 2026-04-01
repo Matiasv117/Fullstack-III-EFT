@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   ms-listas-espera:
-    build: .
+    build: ..
     ports:
       - "8083:8083"
     depends_on:

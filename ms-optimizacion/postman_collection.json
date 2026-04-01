@@ -1,0 +1,422 @@
+{
+  "info": {
+    "name": "MS Optimizacion",
+    "_postman_id": "12345678-1234-1234-1234-123456789012",
+    "description": "Colección de Postman para probar el microservicio MS Optimizacion",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Medicos",
+      "item": [
+        {
+          "name": "Registrar Medico",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Dr. Juan Perez\",\n  \"especialidad\": \"Cardiologia\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/medicos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Todos Medicos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medicos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Medico por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medicos/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Medico",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"nombre\": \"Dr. Juan Perez Actualizado\",\n  \"especialidad\": \"Cardiologia\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/medicos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Medico",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medicos/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicos",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Horarios",
+      "item": [
+        {
+          "name": "Crear Horario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"medico\": {\"id\": 1},\n  \"fecha\": \"2023-10-01\",\n  \"horaInicio\": \"09:00\",\n  \"horaFin\": \"10:00\",\n  \"disponible\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/horarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "horarios"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Todos Horarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/horarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "horarios"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Horarios Disponibles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/horarios/disponibles?medicoId=1&fecha=2023-10-01",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "horarios",
+                "disponibles"
+              ],
+              "query": [
+                {
+                  "key": "medicoId",
+                  "value": "1"
+                },
+                {
+                  "key": "fecha",
+                  "value": "2023-10-01"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Horario por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/horarios/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "horarios",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Horario",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"medico\": {\"id\": 1},\n  \"fecha\": \"2023-10-01\",\n  \"horaInicio\": \"09:00\",\n  \"horaFin\": \"10:00\",\n  \"disponible\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/horarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "horarios"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Horario",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/horarios/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "horarios",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Citas",
+      "item": [
+        {
+          "name": "Crear Cita",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pacienteId\": 1,\n  \"medico\": {\"id\": 1},\n  \"fechaHora\": \"2023-10-01T09:00:00\",\n  \"estado\": \"CONFIRMADA\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/citas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "citas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Todas Citas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/citas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "citas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Citas por Estado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/citas/estado/CONFIRMADA",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "citas",
+                "estado",
+                "CONFIRMADA"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Cita por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/citas/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "citas",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Cita",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"pacienteId\": 1,\n  \"medico\": {\"id\": 1},\n  \"fechaHora\": \"2023-10-01T09:00:00\",\n  \"estado\": \"CANCELADA\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/citas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "citas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cancelar Cita",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/citas/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "citas",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Optimizacion",
+      "item": [
+        {
+          "name": "Procesar Cancelacion",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/optimizacion/cancelar/1?estrategia=fifo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "optimizacion",
+                "cancelar",
+                "1"
+              ],
+              "query": [
+                {
+                  "key": "estrategia",
+                  "value": "fifo"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Lista Espera",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/optimizacion/lista-espera",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "optimizacion",
+                "lista-espera"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8084"
+    }
+  ]
+}

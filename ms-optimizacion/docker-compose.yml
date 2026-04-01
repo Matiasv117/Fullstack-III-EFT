@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+
+  ms-optimizacion:
+    build: ..
+    ports:
+      - "8084:8084"
+    depends_on:
+      - eureka-server
+
+  eureka-server:
+    image: eureka-server:latest  # Asumiendo que hay una imagen o build
+    ports:
+      - "8761:8761"
