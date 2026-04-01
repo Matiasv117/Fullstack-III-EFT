@@ -1,0 +1,204 @@
+{
+  "info": {
+    "name": "Microservicio Listas de Espera - Pruebas",
+    "description": "Colección para probar los endpoints del microservicio de gestión de listas de espera",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Registrar Paciente",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nombre\":\"Juan\",\"apellido\":\"Perez\",\"dni\":\"12345678\",\"telefono\":\"123456789\",\"email\":\"juan@example.com\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8083/pacientes",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["pacientes"]
+        }
+      }
+    },
+    {
+      "name": "Obtener Todos los Pacientes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8083/pacientes",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["pacientes"]
+        }
+      }
+    },
+    {
+      "name": "Obtener Paciente por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8083/pacientes/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["pacientes", "1"]
+        }
+      }
+    },
+    {
+      "name": "Actualizar Paciente",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"id\":1,\"nombre\":\"Juan\",\"apellido\":\"Perez\",\"dni\":\"12345678\",\"telefono\":\"987654321\",\"email\":\"juan.perez@example.com\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8083/pacientes",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["pacientes"]
+        }
+      }
+    },
+    {
+      "name": "Eliminar Paciente",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8083/pacientes/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["pacientes", "1"]
+        }
+      }
+    },
+    {
+      "name": "Agregar a Lista de Espera",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"paciente\":{\"id\":1},\"interconsulta\":\"Consulta cardiologica\",\"gravedad\":\"ALTA\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8083/lista-espera",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["lista-espera"]
+        }
+      }
+    },
+    {
+      "name": "Obtener Lista de Espera",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8083/lista-espera",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["lista-espera"]
+        }
+      }
+    },
+    {
+      "name": "Obtener por Estado",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8083/lista-espera/estado/PENDIENTE",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["lista-espera", "estado", "PENDIENTE"]
+        }
+      }
+    },
+    {
+      "name": "Obtener por Gravedad",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8083/lista-espera/gravedad/ALTA",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["lista-espera", "gravedad", "ALTA"]
+        }
+      }
+    },
+    {
+      "name": "Obtener Lista de Espera por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8083/lista-espera/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["lista-espera", "1"]
+        }
+      }
+    },
+    {
+      "name": "Actualizar Estado",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8083/lista-espera/1/estado/ASIGNADA",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["lista-espera", "1", "estado", "ASIGNADA"]
+        }
+      }
+    },
+    {
+      "name": "Eliminar de Lista de Espera",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8083/lista-espera/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8083",
+          "path": ["lista-espera", "1"]
+        }
+      }
+    }
+  ]
+}
