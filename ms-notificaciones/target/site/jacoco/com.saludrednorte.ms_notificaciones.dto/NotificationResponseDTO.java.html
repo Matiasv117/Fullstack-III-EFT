@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificationResponseDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ms-notificaciones</a> &gt; <a href="index.source.html" class="el_package">com.saludrednorte.ms_notificaciones.dto</a> &gt; <span class="el_source">NotificationResponseDTO.java</span></div><h1>NotificationResponseDTO.java</h1><pre class="source lang-java linenums">package com.saludrednorte.ms_notificaciones.dto;
+
+import com.saludrednorte.ms_notificaciones.entity.EstadoNotificacion;
+import com.saludrednorte.ms_notificaciones.entity.TipoNotificacion;
+
+import java.time.LocalDateTime;
+
+/**
+ * DTO para respuesta de notificaciones.
+ * Contiene los datos expuestos por la API REST.
+ */
+public class NotificationResponseDTO {
+
+	private Long id;
+	private Long pacienteId;
+	private TipoNotificacion tipo;
+	private String mensaje;
+	private EstadoNotificacion estado;
+	private LocalDateTime creadoAt;
+	private LocalDateTime enviadoAt;
+	private Integer intentosEnvio;
+
+<span class="fc" id="L23">	public NotificationResponseDTO() {</span>
+<span class="fc" id="L24">	}</span>
+
+	public NotificationResponseDTO(Long id, Long pacienteId, TipoNotificacion tipo, String mensaje,
+								   EstadoNotificacion estado, LocalDateTime creadoAt,
+<span class="fc" id="L28">								   LocalDateTime enviadoAt, Integer intentosEnvio) {</span>
+<span class="fc" id="L29">		this.id = id;</span>
+<span class="fc" id="L30">		this.pacienteId = pacienteId;</span>
+<span class="fc" id="L31">		this.tipo = tipo;</span>
+<span class="fc" id="L32">		this.mensaje = mensaje;</span>
+<span class="fc" id="L33">		this.estado = estado;</span>
+<span class="fc" id="L34">		this.creadoAt = creadoAt;</span>
+<span class="fc" id="L35">		this.enviadoAt = enviadoAt;</span>
+<span class="fc" id="L36">		this.intentosEnvio = intentosEnvio;</span>
+<span class="fc" id="L37">	}</span>
+
+	public Long getId() {
+<span class="fc" id="L40">		return id;</span>
+	}
+
+	public void setId(Long id) {
+<span class="fc" id="L44">		this.id = id;</span>
+<span class="fc" id="L45">	}</span>
+
+	public Long getPacienteId() {
+<span class="fc" id="L48">		return pacienteId;</span>
+	}
+
+	public void setPacienteId(Long pacienteId) {
+<span class="fc" id="L52">		this.pacienteId = pacienteId;</span>
+<span class="fc" id="L53">	}</span>
+
+	public TipoNotificacion getTipo() {
+<span class="fc" id="L56">		return tipo;</span>
+	}
+
+	public void setTipo(TipoNotificacion tipo) {
+<span class="fc" id="L60">		this.tipo = tipo;</span>
+<span class="fc" id="L61">	}</span>
+
+	public String getMensaje() {
+<span class="fc" id="L64">		return mensaje;</span>
+	}
+
+	public void setMensaje(String mensaje) {
+<span class="fc" id="L68">		this.mensaje = mensaje;</span>
+<span class="fc" id="L69">	}</span>
+
+	public EstadoNotificacion getEstado() {
+<span class="fc" id="L72">		return estado;</span>
+	}
+
+	public void setEstado(EstadoNotificacion estado) {
+<span class="fc" id="L76">		this.estado = estado;</span>
+<span class="fc" id="L77">	}</span>
+
+	public LocalDateTime getCreadoAt() {
+<span class="fc" id="L80">		return creadoAt;</span>
+	}
+
+	public void setCreadoAt(LocalDateTime creadoAt) {
+<span class="fc" id="L84">		this.creadoAt = creadoAt;</span>
+<span class="fc" id="L85">	}</span>
+
+	public LocalDateTime getEnviadoAt() {
+<span class="fc" id="L88">		return enviadoAt;</span>
+	}
+
+	public void setEnviadoAt(LocalDateTime enviadoAt) {
+<span class="nc" id="L92">		this.enviadoAt = enviadoAt;</span>
+<span class="nc" id="L93">	}</span>
+
+	public Integer getIntentosEnvio() {
+<span class="fc" id="L96">		return intentosEnvio;</span>
+	}
+
+	public void setIntentosEnvio(Integer intentosEnvio) {
+<span class="fc" id="L100">		this.intentosEnvio = intentosEnvio;</span>
+<span class="fc" id="L101">	}</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

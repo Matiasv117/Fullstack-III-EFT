@@ -1,0 +1,9 @@
+com\saludrednorte\ms_notificaciones\controller\NotificationControllerTest.class
+com\saludrednorte\ms_notificaciones\MsNotificacionesIntegrationTest.class
+com\saludrednorte\ms_notificaciones\dto\NotificationResponseDTOTest.class
+com\saludrednorte\ms_notificaciones\service\NotificationServiceTest.class
+com\saludrednorte\ms_notificaciones\entity\NotificationTest.class
+com\saludrednorte\ms_notificaciones\dto\NotificationMapperTest.class
+com\saludrednorte\ms_notificaciones\service\factory\NotificationStrategyFactoryTest.class
+com\saludrednorte\ms_notificaciones\dto\NotificationRequestDTOTest.class
+com\saludrednorte\ms_notificaciones\service\strategy\NotificationStrategyTest.class
