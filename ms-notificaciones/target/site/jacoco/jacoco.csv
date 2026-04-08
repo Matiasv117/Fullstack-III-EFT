@@ -15,4 +15,4 @@ ms-notificaciones,com.saludrednorte.ms_notificaciones.dto,NotificationMapper,0,4
 ms-notificaciones,com.saludrednorte.ms_notificaciones.entity,Notification,0,69,0,0,0,21,0,17,0,17
 ms-notificaciones,com.saludrednorte.ms_notificaciones.entity,TipoNotificacion,3,60,0,0,1,11,1,2,1,2
 ms-notificaciones,com.saludrednorte.ms_notificaciones.entity,EstadoNotificacion,3,39,0,0,1,8,1,2,1,2
-ms-notificaciones,com.saludrednorte.ms_notificaciones.service.factory,NotificationStrategyFactory,15,32,0,0,3,9,3,4,3,4
+ms-notificaciones,com.saludrednorte.ms_notificaciones.service.factory,NotificationStrategyFactory,28,19,0,0,6,6,5,2,5,2

@@ -32,9 +32,9 @@ public class NotificationStrategyFactory {
      * @return Strategy encontrada
      */
     public Optional&lt;NotificationStrategy&gt; getStrategy(String channelName) {
-<span class="fc" id="L35">        return strategies.stream()</span>
-<span class="fc" id="L36">                .filter(s -&gt; s.getChannelName().equalsIgnoreCase(channelName))</span>
-<span class="fc" id="L37">                .findFirst();</span>
+<span class="nc" id="L35">        return strategies.stream()</span>
+<span class="nc" id="L36">                .filter(s -&gt; s.getChannelName().equalsIgnoreCase(channelName))</span>
+<span class="nc" id="L37">                .findFirst();</span>
     }
 
     /**

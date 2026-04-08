@@ -1,0 +1,167 @@
+{
+  "info": {
+    "name": "Microservicio Notificaciones - Pruebas",
+    "description": "Colección para probar los endpoints del microservicio de notificaciones",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Crear Notificación",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"pacienteId\": 1, \"tipo\": \"CITA_CONFIRMADA\", \"mensaje\": \"Su cita médica ha sido confirmada para mañana a las 10:00 AM.\"}"
+        },
+        "url": {
+          "raw": "http://localhost:8085/api/notifications",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8085",
+          "path": ["api", "notifications"]
+        }
+      }
+    },
+    {
+      "name": "Obtener Notificaciones Pendientes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/notifications/pending",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8085",
+          "path": ["api", "notifications", "pending"]
+        }
+      }
+    },
+    {
+      "name": "Obtener Notificación por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/notifications/{{notificationId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8085",
+          "path": ["api", "notifications", "{{notificationId}}"]
+        }
+      }
+    },
+    {
+      "name": "Obtener Notificaciones por Paciente ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/notifications/paciente/{{pacienteId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8085",
+          "path": ["api", "notifications", "paciente", "{{pacienteId}}"]
+        }
+      }
+    },
+    {
+      "name": "Enviar Notificación por ID",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/notifications/{{notificationId}}/send",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8085",
+          "path": ["api", "notifications", "{{notificationId}}", "send"]
+        }
+      }
+    },
+    {
+      "name": "Enviar Notificación por Canal",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/notifications/{{notificationId}}/send-by-channel?canal={{canal}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8085",
+          "path": ["api", "notifications", "{{notificationId}}", "send-by-channel"],
+          "query": [
+            {
+              "key": "canal",
+              "value": "{{canal}}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Enviar Todas las Notificaciones Pendientes",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/notifications/send-all",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8085",
+          "path": ["api", "notifications", "send-all"]
+        }
+      }
+    },
+    {
+      "name": "Obtener Canales Disponibles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/notifications/info/channels",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8085",
+          "path": ["api", "notifications", "info", "channels"]
+        }
+      }
+    },
+    {
+      "name": "Verificar Salud del Servicio",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8085/api/notifications/info/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8085",
+          "path": ["api", "notifications", "info", "health"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "notificationId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "pacienteId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "canal",
+      "value": "EMAIL",
+      "type": "string"
+    }
+  ]
+}
