@@ -1,22 +1,41 @@
 # ms-notificaciones
 
-Microservicio de notificaciones del sistema RedNorte.
+Microservicio de notificaciones de RedNorte.
 
-## Estado actual
+## Qué hace
 
-El servicio permite:
+- crea notificaciones
+- consulta notificaciones por ID
+- consulta notificaciones por paciente
+- lista notificaciones pendientes
+- marca notificaciones como enviadas
+- expone información básica del servicio
+- se registra en Eureka
 
-- crear notificaciones
-- consultar notificaciones por ID
-- consultar notificaciones por paciente
-- listar notificaciones pendientes
-- enviar una notificación por defecto o por canal
-- consultar canales disponibles
-- verificar salud del servicio
+> Los canales `EMAIL`, `SMS` y `PUSH` están simulados para esta versión.
 
-> Nota: los canales `EMAIL`, `SMS` y `PUSH` están simulados. No hay integración real con proveedores externos todavía.
+## Tecnologías
 
-## Endpoints
+- Spring Boot 2.7.12
+- Java 11
+- Spring Data JPA
+- H2 en memoria
+- Eureka Client
+- Scheduler
+
+## Ejecutar el servicio
+
+Desde la carpeta `ms-notificaciones`:
+
+```bash
+mvn spring-boot:run
+```
+
+El servicio arranca en:
+
+- `http://localhost:8085`
+
+## Endpoints principales
 
 Base path: `/api/notifications`
 
@@ -35,51 +54,21 @@ Base path: `/api/notifications`
 - `GET /api/notifications/info/channels`
 - `GET /api/notifications/info/health`
 
-## Ejemplo de creación
+## Eureka
 
-```http
-POST /api/notifications
-Content-Type: application/json
+Configura el servidor Eureka en `src/main/resources/application.properties`:
 
-{
-  "pacienteId": 123,
-  "tipo": "CITA_CONFIRMADA",
-  "mensaje": "Su cita ha sido confirmada para mañana a las 10:00"
-}
+```properties
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
 ```
 
-## Modelo de datos
+## Pruebas
 
-### Tipos de notificación
+```bash
+mvn test
+```
 
-- `CITA_CONFIRMADA`
-- `CITA_CANCELADA`
-- `RECORDATORIO_CITA`
-- `CAMBIO_HORARIO`
-- `PACIENTE_ASIGNADO`
-- `CAMBIO_PRIORIDAD`
-- `POSICION_ACTUALIZADA`
-
-### Estados
-
-- `PENDIENTE`
-- `ENVIADA`
-- `REINTENTANDO`
-- `FALLIDA`
-
-## Configuración
-
-El servicio usa:
-
-- Spring Boot 2.7.12
-- Java 11
-- H2 en memoria
-- JPA
-- Scheduler habilitado
-
-Configuración principal en `src/main/resources/application.properties`.
-
-## Estructura principal
+## Estructura base
 
 ```text
 src/main/java/com/saludrednorte/ms_notificaciones/
@@ -91,21 +80,3 @@ src/main/java/com/saludrednorte/ms_notificaciones/
 ├── scheduler/
 └── service/
 ```
-
-## Pruebas
-
-El proyecto incluye pruebas unitarias e integración para controller, DTOs, entidad y flujo principal.
-
-## Pendientes reales
-
-- integrar proveedores reales de email, SMS y push
-- cambiar H2 por PostgreSQL si se va a desplegar en producción
-- mejorar la estrategia de reintentos asíncronos si hace falta alta disponibilidad
-
-## Ejecutar
-
-```bash
-mvn test
-```
-
-

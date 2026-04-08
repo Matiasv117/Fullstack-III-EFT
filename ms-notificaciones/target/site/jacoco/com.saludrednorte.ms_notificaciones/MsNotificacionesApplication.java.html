@@ -2,6 +2,7 @@
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
@@ -11,11 +12,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication
 @EnableScheduling
-<span class="fc" id="L14">public class MsNotificacionesApplication {</span>
+@EnableDiscoveryClient
+<span class="fc" id="L16">public class MsNotificacionesApplication {</span>
 
     public static void main(String[] args) {
-<span class="nc" id="L17">        SpringApplication.run(MsNotificacionesApplication.class, args);</span>
-<span class="nc" id="L18">    }</span>
+<span class="nc" id="L19">        SpringApplication.run(MsNotificacionesApplication.class, args);</span>
+<span class="nc" id="L20">    }</span>
 }
-
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

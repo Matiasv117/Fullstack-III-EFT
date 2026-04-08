@@ -1,10 +1,10 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-ms-notificaciones,com.saludrednorte.ms_notificaciones.scheduler,NotificationScheduler,21,21,0,0,9,9,1,3,1,3
+ms-notificaciones,com.saludrednorte.ms_notificaciones.scheduler,NotificationScheduler,5,21,0,0,2,9,0,3,0,3
 ms-notificaciones,com.saludrednorte.ms_notificaciones.exception,GlobalExceptionHandler,159,7,0,0,30,2,4,2,4,2
 ms-notificaciones,com.saludrednorte.ms_notificaciones,MsNotificacionesApplication,5,3,0,0,2,1,1,1,1,1
-ms-notificaciones,com.saludrednorte.ms_notificaciones.controller,NotificationInfoController,22,9,0,0,7,4,2,2,2,2
+ms-notificaciones,com.saludrednorte.ms_notificaciones.controller,NotificationInfoController,20,9,0,0,4,4,2,2,2,2
 ms-notificaciones,com.saludrednorte.ms_notificaciones.controller,NotificationController,39,68,3,1,7,15,5,5,3,5
-ms-notificaciones,com.saludrednorte.ms_notificaciones.service,NotificationService,82,126,9,7,11,30,9,10,2,9
+ms-notificaciones,com.saludrednorte.ms_notificaciones.service,NotificationService,30,127,6,8,4,30,9,11,3,10
 ms-notificaciones,com.saludrednorte.ms_notificaciones.service.strategy,PushNotificationStrategy,15,9,0,0,5,3,1,3,1,3
 ms-notificaciones,com.saludrednorte.ms_notificaciones.service.strategy,EmailNotificationStrategy,0,24,0,0,0,8,0,4,0,4
 ms-notificaciones,com.saludrednorte.ms_notificaciones.service.strategy,SMSNotificationStrategy,15,9,0,0,5,3,1,3,1,3

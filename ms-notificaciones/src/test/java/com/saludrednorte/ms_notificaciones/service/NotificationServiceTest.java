@@ -4,20 +4,18 @@ import com.saludrednorte.ms_notificaciones.entity.EstadoNotificacion;
 import com.saludrednorte.ms_notificaciones.entity.Notification;
 import com.saludrednorte.ms_notificaciones.entity.TipoNotificacion;
 import com.saludrednorte.ms_notificaciones.repository.NotificationRepository;
-import com.saludrednorte.ms_notificaciones.service.factory.NotificationStrategyFactory;
-import com.saludrednorte.ms_notificaciones.service.strategy.NotificationStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -26,16 +24,11 @@ import static org.mockito.Mockito.when;
  * Tests unitarios para NotificationService
  * Valida la lógica de creación, envío y gestión de notificaciones
  */
+@ExtendWith(MockitoExtension.class)
 class NotificationServiceTest {
 
     @Mock
     private NotificationRepository repository;
-
-    @Mock
-    private NotificationStrategyFactory strategyFactory;
-
-    @Mock
-    private NotificationStrategy strategy;
 
     @InjectMocks
     private NotificationService service;
@@ -44,8 +37,6 @@ class NotificationServiceTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-
         notification = new Notification();
         notification.setId(1L);
         notification.setPacienteId(123L);
@@ -87,11 +78,9 @@ class NotificationServiceTest {
     }
 
     @Test
-    void testSendById() throws Exception {
+    void testSendById() {
         when(repository.findById(1L)).thenReturn(Optional.of(notification));
-        when(strategyFactory.getStrategy("EMAIL")).thenReturn(Optional.of(strategy));
         when(repository.save(any(Notification.class))).thenReturn(notification);
-        doNothing().when(strategy).send(notification);
 
         boolean result = service.sendById(1L);
 
