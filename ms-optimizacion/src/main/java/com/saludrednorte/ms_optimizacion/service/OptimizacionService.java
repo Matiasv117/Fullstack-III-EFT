@@ -1,10 +1,13 @@
 package com.saludrednorte.ms_optimizacion.service;
 
+import com.saludrednorte.ms_optimizacion.client.ListaEsperaClient;
+import com.saludrednorte.ms_optimizacion.dto.ListaEsperaDTO;
 import com.saludrednorte.ms_optimizacion.entity.Cita;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @Service
 public class OptimizacionService {
@@ -15,7 +18,8 @@ public class OptimizacionService {
     @Autowired
     private CitaService citaService;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private ListaEsperaClient listaEsperaClient;
 
     public void procesarCancelacion(Long citaId, String estrategiaTipo) {
         citaService.cancelarCita(citaId);
@@ -27,12 +31,13 @@ public class OptimizacionService {
     }
 
     @CircuitBreaker(name = "listaEsperaService", fallbackMethod = "fallbackListaEspera")
-    public String obtenerListaEspera() {
-        // Llamada a ms-gestionpacientes
-        return restTemplate.getForObject("http://ms-gestionpacientes:8083/listas-espera", String.class);
+    public List<ListaEsperaDTO> obtenerListaEspera() {
+        // Llamada a ms-gestionpacientes usando Feign
+        return listaEsperaClient.getListaEspera();
     }
 
-    public String fallbackListaEspera(Throwable t) {
-        return "Servicio no disponible, usando datos locales";
+    public List<ListaEsperaDTO> fallbackListaEspera(Throwable t) {
+        // Retornar lista vacía o datos locales
+        return List.of();
     }
 }
