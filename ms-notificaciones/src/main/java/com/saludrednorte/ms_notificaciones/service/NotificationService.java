@@ -47,6 +47,10 @@ public class NotificationService {
         return repository.findById(id);
     }
 
+    public List<Notification> findAll() {
+        return repository.findAll();
+    }
+
     @Transactional
     public void sendPending() {
         findPending().forEach(notification -> markAsSent(notification, CANAL_DEFECTO));

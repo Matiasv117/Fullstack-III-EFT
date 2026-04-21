@@ -1,5 +1,8 @@
 package com.saludrednorte.ms_listas_espera.service;
 
+import com.saludrednorte.ms_listas_espera.client.NotificationClient;
+import com.saludrednorte.ms_listas_espera.dto.NotificationRequestDTO;
+import com.saludrednorte.ms_listas_espera.dto.TipoNotificacion;
 import com.saludrednorte.ms_listas_espera.entity.Estado;
 import com.saludrednorte.ms_listas_espera.entity.Gravedad;
 import com.saludrednorte.ms_listas_espera.entity.ListaEspera;
@@ -16,9 +19,14 @@ public class ListaEsperaService {
     @Autowired
     private ListaEsperaRepository listaEsperaRepository;
 
+    @Autowired
+    private NotificationClient notificationClient;
+
     public ListaEspera agregarAListaEspera(ListaEspera listaEspera) {
         listaEspera.setEstado(Estado.PENDIENTE);
-        return listaEsperaRepository.save(listaEspera);
+        ListaEspera listaEsperaGuardada = listaEsperaRepository.save(listaEspera);
+        enviarNotificacion(listaEsperaGuardada, TipoNotificacion.PACIENTE_ASIGNADO);
+        return listaEsperaGuardada;
     }
 
     public List<ListaEspera> obtenerListaEspera() {
@@ -42,12 +50,27 @@ public class ListaEsperaService {
         if (optional.isPresent()) {
             ListaEspera listaEspera = optional.get();
             listaEspera.setEstado(estado);
-            return listaEsperaRepository.save(listaEspera);
+            listaEsperaRepository.save(listaEspera);
+            enviarNotificacion(listaEspera, TipoNotificacion.ACTUALIZACION_ESTADO);
+            return listaEspera;
         }
         return null;
     }
 
     public void eliminarDeListaEspera(Long id) {
-        listaEsperaRepository.deleteById(id);
+        Optional<ListaEspera> optional = listaEsperaRepository.findById(id);
+        if (optional.isPresent()) {
+            ListaEspera listaEspera = optional.get();
+            listaEsperaRepository.deleteById(id);
+            enviarNotificacion(listaEspera, TipoNotificacion.ELIMINACION_LISTA_ESPERA);
+        }
+    }
+
+    private void enviarNotificacion(ListaEspera listaEspera, TipoNotificacion tipo) {
+        NotificationRequestDTO requestDTO = new NotificationRequestDTO();
+        requestDTO.setPacienteId(listaEspera.getPaciente().getId());
+        requestDTO.setTipo(tipo);
+        requestDTO.setMensaje("Actualización en la lista de espera: " + listaEspera.getId());
+        notificationClient.createNotification(requestDTO);
     }
 }

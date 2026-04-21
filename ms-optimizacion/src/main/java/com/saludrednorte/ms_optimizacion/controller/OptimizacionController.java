@@ -1,8 +1,11 @@
 package com.saludrednorte.ms_optimizacion.controller;
 
+import com.saludrednorte.ms_optimizacion.dto.ListaEsperaDTO;
 import com.saludrednorte.ms_optimizacion.service.OptimizacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/optimizacion")
@@ -17,7 +20,7 @@ public class OptimizacionController {
     }
 
     @GetMapping("/lista-espera")
-    public String obtenerListaEspera() {
+    public List<ListaEsperaDTO> obtenerListaEspera() {
         return optimizacionService.obtenerListaEspera();
     }
 }

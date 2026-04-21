@@ -75,4 +75,12 @@ public class NotificationController {
         service.sendPending();
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping
+    public ResponseEntity<List<NotificationResponseDTO>> getAll() {
+        List<NotificationResponseDTO> result = service.findAll().stream()
+                .map(mapper::entityToResponseDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
+    }
 }
