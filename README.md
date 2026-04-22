@@ -56,7 +56,7 @@ git clone [https://github.com/Matiasv117/Fullstack-III-EFT.git](https://github.c
 ```
 
 **Autores:**
-* Nombre	GitHub
-* Matías	@Matiasv117	
-* Benjamín	@Beibanezv
-* Fabián	@FabianReyes02
+* Nombre          GitHub
+* Matías Vargas	  @Matiasv117	
+* Benjamín Ibañez	@Beibanezv
+* Fabián	Reyes   @FabianReyes02
