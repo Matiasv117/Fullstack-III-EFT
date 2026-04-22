@@ -56,6 +56,7 @@ git clone [https://github.com/Matiasv117/Fullstack-III-EFT.git](https://github.c
 ```
 
 **Autores:**
+<<<<<<< HEAD
 * Nombre	GitHub
 * Matías	@Matiasv117	
 * Benjamín	@Beibanezv
@@ -70,3 +71,9 @@ Set-Location "C:\Users\W608-PCXX\IdeaProjects\Fullstack-III-EFT"
 .\scripts\smoke-test-e2e.ps1
 ```
 
+=======
+* Nombre          GitHub
+* Matías Vargas	  @Matiasv117	
+* Benjamín Ibañez	@Beibanezv
+* Fabián	Reyes   @FabianReyes02
+>>>>>>> 808b6921cd2fc4d2683b5529587091aa4bf9f823
