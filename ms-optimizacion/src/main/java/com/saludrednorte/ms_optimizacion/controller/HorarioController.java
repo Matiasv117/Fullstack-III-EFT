@@ -3,13 +3,13 @@ package com.saludrednorte.ms_optimizacion.controller;
 import com.saludrednorte.ms_optimizacion.entity.Horario;
 import com.saludrednorte.ms_optimizacion.entity.Medico;
 import com.saludrednorte.ms_optimizacion.service.HorarioService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/horarios")
@@ -36,8 +36,10 @@ public class HorarioController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Horario> obtenerHorarioPorId(@PathVariable Long id) {
-        return horarioService.obtenerHorarioPorId(id);
+    public ResponseEntity<Horario> obtenerHorarioPorId(@PathVariable Long id) {
+        return horarioService.obtenerHorarioPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping

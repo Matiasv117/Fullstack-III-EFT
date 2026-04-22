@@ -3,11 +3,11 @@ package com.saludrednorte.ms_optimizacion.controller;
 import com.saludrednorte.ms_optimizacion.entity.Cita;
 import com.saludrednorte.ms_optimizacion.entity.EstadoCita;
 import com.saludrednorte.ms_optimizacion.service.CitaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/citas")
@@ -32,8 +32,10 @@ public class CitaController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Cita> obtenerCitaPorId(@PathVariable Long id) {
-        return citaService.obtenerCitaPorId(id);
+    public ResponseEntity<Cita> obtenerCitaPorId(@PathVariable Long id) {
+        return citaService.obtenerCitaPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping

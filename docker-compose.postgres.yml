@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db-gestionpacientes:
+    image: postgres:16
+    container_name: db-gestionpacientes
+    environment:
+      POSTGRES_DB: ms_gestionpacientes
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata-gestionpacientes:/var/lib/postgresql/data
+
+  db-optimizacion:
+    image: postgres:16
+    container_name: db-optimizacion
+    environment:
+      POSTGRES_DB: ms_optimizacion
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata-optimizacion:/var/lib/postgresql/data
+
+  db-notificaciones:
+    image: postgres:16
+    container_name: db-notificaciones
+    environment:
+      POSTGRES_DB: ms_notificaciones
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - pgdata-notificaciones:/var/lib/postgresql/data
+
+volumes:
+  pgdata-gestionpacientes:
+  pgdata-optimizacion:
+  pgdata-notificaciones:
+

@@ -2,11 +2,11 @@ package com.saludrednorte.ms_listas_espera.controller;
 
 import com.saludrednorte.ms_listas_espera.entity.Paciente;
 import com.saludrednorte.ms_listas_espera.service.PacienteService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/pacientes")
@@ -26,8 +26,10 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Paciente> obtenerPacientePorId(@PathVariable Long id) {
-        return pacienteService.obtenerPacientePorId(id);
+    public ResponseEntity<Paciente> obtenerPacientePorId(@PathVariable Long id) {
+        return pacienteService.obtenerPacientePorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping

@@ -4,11 +4,11 @@ import com.saludrednorte.ms_listas_espera.entity.Estado;
 import com.saludrednorte.ms_listas_espera.entity.Gravedad;
 import com.saludrednorte.ms_listas_espera.entity.ListaEspera;
 import com.saludrednorte.ms_listas_espera.service.ListaEsperaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/lista-espera")
@@ -38,8 +38,10 @@ public class ListaEsperaController {
     }
 
     @GetMapping("/{id}")
-    public Optional<ListaEspera> obtenerPorId(@PathVariable Long id) {
-        return listaEsperaService.obtenerPorId(id);
+    public ResponseEntity<ListaEspera> obtenerPorId(@PathVariable Long id) {
+        return listaEsperaService.obtenerPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}/estado/{estado}")

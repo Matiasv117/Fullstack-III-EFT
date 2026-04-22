@@ -2,16 +2,17 @@ package com.saludrednorte.ms_notificaciones.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.server.ResponseStatusException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -23,65 +24,52 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    @Value("${spring.application.name:ms-notificaciones}")
+    private String serviceName;
+
     /**
      * Maneja errores de validación de DTOs
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, Object>> handleValidationExceptions(
-            MethodArgumentNotValidException ex, WebRequest request) {
-        
-        Map<String, String> errores = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errores.put(fieldName, errorMessage);
-        });
+    public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException ex, ServletWebRequest request) {
+        logger.warn("Error de validación", ex);
+        return buildError(HttpStatus.BAD_REQUEST, "Solicitud invalida", ex.getClass().getSimpleName(), request.getRequest().getRequestURI());
+    }
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("timestamp", LocalDateTime.now());
-        response.put("status", HttpStatus.BAD_REQUEST.value());
-        response.put("message", "Errores de validación");
-        response.put("errors", errores);
-        response.put("path", request.getDescription(false).replace("uri=", ""));
-
-        logger.warn("Error de validación: {}", errores);
-        return ResponseEntity.badRequest().body(response);
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<Map<String, Object>> handleResponseStatus(ResponseStatusException ex, ServletWebRequest request) {
+        String reason = ex.getReason() == null ? ex.getStatus().toString() : ex.getReason();
+        logger.warn("Error controlado: {}", reason);
+        return buildError(ex.getStatus(), reason, ex.getClass().getSimpleName(), request.getRequest().getRequestURI());
     }
 
     /**
      * Maneja excepciones generales no capturadas
      */
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, Object>> handleGlobalException(
-            Exception ex, WebRequest request) {
-        
-        Map<String, Object> response = new HashMap<>();
-        response.put("timestamp", LocalDateTime.now());
-        response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-        response.put("message", "Error interno del servidor");
-        response.put("error", ex.getMessage());
-        response.put("path", request.getDescription(false).replace("uri=", ""));
-
+    public ResponseEntity<Map<String, Object>> handleGlobalException(Exception ex, ServletWebRequest request) {
         logger.error("Error no controlado: ", ex);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        return buildError(HttpStatus.INTERNAL_SERVER_ERROR, "Error interno del servidor", ex.getClass().getSimpleName(), request.getRequest().getRequestURI());
     }
 
     /**
      * Maneja excepciones de recurso no encontrado
      */
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(
-            IllegalArgumentException ex, WebRequest request) {
-        
-        Map<String, Object> response = new HashMap<>();
-        response.put("timestamp", LocalDateTime.now());
-        response.put("status", HttpStatus.BAD_REQUEST.value());
-        response.put("message", "Argumento inválido");
-        response.put("error", ex.getMessage());
-        response.put("path", request.getDescription(false).replace("uri=", ""));
-
+    public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(IllegalArgumentException ex, ServletWebRequest request) {
         logger.warn("Error de argumento inválido: {}", ex.getMessage());
-        return ResponseEntity.badRequest().body(response);
+        return buildError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex.getClass().getSimpleName(), request.getRequest().getRequestURI());
+    }
+
+    private ResponseEntity<Map<String, Object>> buildError(HttpStatus status, String message, String error, String path) {
+        Map<String, Object> payload = new LinkedHashMap<>();
+        payload.put("timestamp", LocalDateTime.now().toString());
+        payload.put("status", status.value());
+        payload.put("error", error);
+        payload.put("message", message);
+        payload.put("path", path);
+        payload.put("service", serviceName);
+        return ResponseEntity.status(status).body(payload);
     }
 }
 

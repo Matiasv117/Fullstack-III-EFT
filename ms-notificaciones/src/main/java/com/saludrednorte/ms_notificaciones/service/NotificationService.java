@@ -5,8 +5,10 @@ import com.saludrednorte.ms_notificaciones.entity.Notification;
 import com.saludrednorte.ms_notificaciones.repository.NotificationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,6 +30,13 @@ public class NotificationService {
     public Notification create(Notification notification) {
         if (notification == null) {
             throw new IllegalArgumentException("La notificación no puede ser nula");
+        }
+        if (repository.existsByPacienteIdAndTipoAndMensajeAndEstado(
+                notification.getPacienteId(),
+                notification.getTipo(),
+                notification.getMensaje(),
+                EstadoNotificacion.PENDIENTE)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe una notificación pendiente equivalente");
         }
         notification.setCreadoAt(notification.getCreadoAt() != null ? notification.getCreadoAt() : LocalDateTime.now());
         notification.setEstado(EstadoNotificacion.PENDIENTE);

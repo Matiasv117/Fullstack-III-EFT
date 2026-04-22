@@ -11,7 +11,9 @@ public enum TipoNotificacion {
     CAMBIO_HORARIO("Cambio de horario de cita"),
     PACIENTE_ASIGNADO("Paciente asignado a lista de espera"),
     CAMBIO_PRIORIDAD("Cambio de prioridad en lista de espera"),
-    POSICION_ACTUALIZADA("Actualización de posición en lista de espera");
+    POSICION_ACTUALIZADA("Actualización de posición en lista de espera"),
+    ACTUALIZACION_ESTADO("Actualización de estado en lista de espera"),
+    ELIMINACION_LISTA_ESPERA("Eliminación de paciente de lista de espera");
 
     private final String descripcion;
 

@@ -2,8 +2,10 @@ package com.saludrednorte.ms_optimizacion.service;
 
 import com.saludrednorte.ms_optimizacion.entity.Medico;
 import com.saludrednorte.ms_optimizacion.repository.MedicoRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +29,16 @@ public class MedicoService {
     }
 
     public Medico actualizarMedico(Medico medico) {
+        if (medico.getId() == null || !medicoRepository.existsById(medico.getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Medico no encontrado");
+        }
         return medicoRepository.save(medico);
     }
 
     public void eliminarMedico(Long id) {
+        if (!medicoRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Medico no encontrado");
+        }
         medicoRepository.deleteById(id);
     }
 }

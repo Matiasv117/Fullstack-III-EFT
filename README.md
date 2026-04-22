@@ -60,3 +60,13 @@ git clone [https://github.com/Matiasv117/Fullstack-III-EFT.git](https://github.c
 * Matías	@Matiasv117	
 * Benjamín	@Beibanezv
 * Fabián	@FabianReyes02
+
+## Smoke Test E2E (Microservicios)
+
+Con los servicios levantados, puedes validar integracion base con:
+
+```powershell
+Set-Location "C:\Users\W608-PCXX\IdeaProjects\Fullstack-III-EFT"
+.\scripts\smoke-test-e2e.ps1
+```
+

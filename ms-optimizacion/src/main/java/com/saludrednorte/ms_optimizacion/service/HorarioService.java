@@ -3,8 +3,10 @@ package com.saludrednorte.ms_optimizacion.service;
 import com.saludrednorte.ms_optimizacion.entity.Horario;
 import com.saludrednorte.ms_optimizacion.entity.Medico;
 import com.saludrednorte.ms_optimizacion.repository.HorarioRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,10 +35,16 @@ public class HorarioService {
     }
 
     public Horario actualizarHorario(Horario horario) {
+        if (horario.getId() == null || !horarioRepository.existsById(horario.getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Horario no encontrado");
+        }
         return horarioRepository.save(horario);
     }
 
     public void eliminarHorario(Long id) {
+        if (!horarioRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Horario no encontrado");
+        }
         horarioRepository.deleteById(id);
     }
 }

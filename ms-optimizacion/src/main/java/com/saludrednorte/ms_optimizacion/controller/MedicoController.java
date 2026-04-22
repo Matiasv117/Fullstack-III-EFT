@@ -2,11 +2,11 @@ package com.saludrednorte.ms_optimizacion.controller;
 
 import com.saludrednorte.ms_optimizacion.entity.Medico;
 import com.saludrednorte.ms_optimizacion.service.MedicoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/medicos")
@@ -26,8 +26,10 @@ public class MedicoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Medico> obtenerMedicoPorId(@PathVariable Long id) {
-        return medicoService.obtenerMedicoPorId(id);
+    public ResponseEntity<Medico> obtenerMedicoPorId(@PathVariable Long id) {
+        return medicoService.obtenerMedicoPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping
