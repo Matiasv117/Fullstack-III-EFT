@@ -71,9 +71,25 @@ Set-Location "C:\Users\W608-PCXX\IdeaProjects\Fullstack-III-EFT"
 .\scripts\smoke-test-e2e.ps1
 ```
 
+## Arranque y apagado automatico
+
+### Levantar todo
+
+```powershell
+Set-Location "C:\Users\W608-PCXX\IdeaProjects\Fullstack-III-EFT"
+.\scripts\start-all.ps1 -RestartExisting -RunSmokeTest
+```
+
+### Detener todo
+
+```powershell
+Set-Location "C:\Users\W608-PCXX\IdeaProjects\Fullstack-III-EFT"
+.\scripts\stop-all.ps1
+```
+
 =======
 * Nombre          GitHub
-* Matías Vargas	  @Matiasv117	
-* Benjamín Ibañez	@Beibanezv
-* Fabián	Reyes   @FabianReyes02
+* Matías Vargas	  @matiasv117	
+* Benjamín Ibañez	@beibanezv
+* Fabián	Reyes   @fabianReyes02
 >>>>>>> 808b6921cd2fc4d2683b5529587091aa4bf9f823

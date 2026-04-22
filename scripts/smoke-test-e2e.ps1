@@ -63,12 +63,26 @@ Test-Status -Url "$GatewayBaseUrl/pacientes/99999999" -ExpectedStatus 404
 
 # 409: conflicto por DNI duplicado
 $dni = "SMOKE-$([DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds())"
-$pacienteJson = "{\"nombre\":\"Smoke\",\"apellido\":\"Test\",\"dni\":\"$dni\",\"telefono\":\"111111\",\"email\":\"smoke@test.local\"}"
+$pacienteJson = @"
+{
+  "nombre": "Smoke",
+  "apellido": "Test",
+  "dni": "$dni",
+  "telefono": "111111",
+  "email": "smoke@test.local"
+}
+"@
 Test-Status -Url "$GatewayBaseUrl/pacientes" -Method POST -Body $pacienteJson -ExpectedStatus 200
 Test-Status -Url "$GatewayBaseUrl/pacientes" -Method POST -Body $pacienteJson -ExpectedStatus 409
 
 # 400: validacion basica de notificaciones (pacienteId invalido)
-$notifJson = "{\"pacienteId\":0,\"tipo\":\"PACIENTE_ASIGNADO\",\"mensaje\":\"abc\"}"
+$notifJson = @"
+{
+  "pacienteId": 0,
+  "tipo": "PACIENTE_ASIGNADO",
+  "mensaje": "abc"
+}
+"@
 Test-Status -Url "$GatewayBaseUrl/api/notifications" -Method POST -Body $notifJson -ExpectedStatus 400
 
 Write-Host "=== Smoke test completado correctamente ===" -ForegroundColor Cyan

@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: api-gateway
+  codec:
+    max-in-memory-size: 10MB
   cloud:
     compatibility-verifier:
       enabled: false
@@ -35,21 +37,21 @@ spring:
           predicates:
             - Path=/docs/ms-listas-espera/**
           filters:
-            - StripPrefix=2
+            - SetPath=/v3/api-docs
 
         - id: docs-ms-notificaciones
           uri: http://localhost:8085
           predicates:
             - Path=/docs/ms-notificaciones/**
           filters:
-            - StripPrefix=2
+            - SetPath=/v3/api-docs
 
         - id: docs-ms-optimizacion
           uri: http://localhost:8084
           predicates:
             - Path=/docs/ms-optimizacion/**
           filters:
-            - StripPrefix=2
+            - SetPath=/v3/api-docs
 
 eureka:
   client:
