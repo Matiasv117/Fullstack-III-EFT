@@ -38,9 +38,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Map<String, Object>> handleResponseStatus(ResponseStatusException ex, ServletWebRequest request) {
-        String reason = ex.getReason() == null ? ex.getStatus().toString() : ex.getReason();
+        HttpStatus status = HttpStatus.resolve(ex.getStatusCode().value()) != null ?
+            HttpStatus.resolve(ex.getStatusCode().value()) : HttpStatus.INTERNAL_SERVER_ERROR;
+        String reason = ex.getReason() == null ? status.toString() : ex.getReason();
         logger.warn("Error controlado: {}", reason);
-        return buildError(ex.getStatus(), reason, ex.getClass().getSimpleName(), request.getRequest().getRequestURI());
+        return buildError(status, reason, ex.getClass().getSimpleName(), request.getRequest().getRequestURI());
     }
 
     /**

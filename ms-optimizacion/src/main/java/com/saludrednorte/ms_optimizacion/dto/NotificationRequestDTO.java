@@ -1,25 +1,9 @@
-package com.saludrednorte.ms_listas_espera.dto;
+package com.saludrednorte.ms_optimizacion.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
-
-/**
- * DTO para request de creación de notificaciones.
- */
 public class NotificationRequestDTO {
 
-    @NotNull
-    @Positive
     private Long pacienteId;
-
-    @NotNull
-    @NotBlank
     private String tipo;
-
-    @NotBlank
-    @Size(min = 5, max = 2000)
     private String mensaje;
 
     public NotificationRequestDTO() {
@@ -55,3 +39,4 @@ public class NotificationRequestDTO {
         this.mensaje = mensaje;
     }
 }
+

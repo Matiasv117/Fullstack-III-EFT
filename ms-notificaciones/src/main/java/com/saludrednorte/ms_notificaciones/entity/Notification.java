@@ -1,6 +1,6 @@
 package com.saludrednorte.ms_notificaciones.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 /**

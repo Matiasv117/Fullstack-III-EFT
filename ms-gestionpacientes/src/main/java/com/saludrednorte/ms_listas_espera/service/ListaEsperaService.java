@@ -2,7 +2,6 @@ package com.saludrednorte.ms_listas_espera.service;
 
 import com.saludrednorte.ms_listas_espera.client.NotificationClient;
 import com.saludrednorte.ms_listas_espera.dto.NotificationRequestDTO;
-import com.saludrednorte.ms_listas_espera.dto.TipoNotificacion;
 import com.saludrednorte.ms_listas_espera.entity.Estado;
 import com.saludrednorte.ms_listas_espera.entity.Gravedad;
 import com.saludrednorte.ms_listas_espera.entity.ListaEspera;
@@ -34,7 +33,7 @@ public class ListaEsperaService {
         }
         listaEspera.setEstado(Estado.PENDIENTE);
         ListaEspera listaEsperaGuardada = listaEsperaRepository.save(listaEspera);
-        enviarNotificacion(listaEsperaGuardada, TipoNotificacion.PACIENTE_ASIGNADO);
+        enviarNotificacion(listaEsperaGuardada, "PACIENTE_ASIGNADO");
         return listaEsperaGuardada;
     }
 
@@ -63,7 +62,7 @@ public class ListaEsperaService {
         ListaEspera listaEspera = optional.get();
         listaEspera.setEstado(estado);
         listaEsperaRepository.save(listaEspera);
-        enviarNotificacion(listaEspera, TipoNotificacion.ACTUALIZACION_ESTADO);
+        enviarNotificacion(listaEspera, "ACTUALIZACION_ESTADO");
         return listaEspera;
     }
 
@@ -75,10 +74,10 @@ public class ListaEsperaService {
 
         ListaEspera listaEspera = optional.get();
         listaEsperaRepository.deleteById(id);
-        enviarNotificacion(listaEspera, TipoNotificacion.ELIMINACION_LISTA_ESPERA);
+        enviarNotificacion(listaEspera, "ELIMINACION_LISTA_ESPERA");
     }
 
-    private void enviarNotificacion(ListaEspera listaEspera, TipoNotificacion tipo) {
+    private void enviarNotificacion(ListaEspera listaEspera, String tipo) {
         NotificationRequestDTO requestDTO = new NotificationRequestDTO();
         requestDTO.setPacienteId(listaEspera.getPaciente().getId());
         requestDTO.setTipo(tipo);

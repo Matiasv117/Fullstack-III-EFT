@@ -1,7 +1,11 @@
 package com.saludrednorte.ms_listas_espera.service;
 
+import com.saludrednorte.ms_listas_espera.client.NotificationClient;
+import com.saludrednorte.ms_listas_espera.dto.NotificationRequestDTO;
 import com.saludrednorte.ms_listas_espera.entity.Paciente;
 import com.saludrednorte.ms_listas_espera.repository.PacienteRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +17,35 @@ import java.util.Optional;
 @Service
 public class PacienteService {
 
+    private static final Logger logger = LoggerFactory.getLogger(PacienteService.class);
+
     @Autowired
     private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private NotificationClient notificationClient;
 
     public Paciente registrarPaciente(Paciente paciente) {
         if (paciente.getDni() != null && pacienteRepository.existsByDniIgnoreCase(paciente.getDni())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe un paciente con el DNI indicado");
         }
-        return pacienteRepository.save(paciente);
+
+        Paciente savedPaciente = pacienteRepository.save(paciente);
+
+        // Crear notificación automáticamente
+        try {
+            NotificationRequestDTO notif = new NotificationRequestDTO();
+            notif.setPacienteId(savedPaciente.getId());
+            notif.setTipo("PACIENTE_ASIGNADO");
+            notif.setMensaje("Paciente " + savedPaciente.getNombre() + " " +
+                            savedPaciente.getApellido() + " registrado en el sistema");
+            notificationClient.createNotification(notif);
+            logger.info("Notificación creada para paciente {}", savedPaciente.getId());
+        } catch (Exception e) {
+            logger.warn("Fallo al crear notificación pero paciente registrado: {}", e.getMessage());
+        }
+
+        return savedPaciente;
     }
 
     public List<Paciente> obtenerTodosPacientes() {
@@ -35,7 +60,22 @@ public class PacienteService {
         if (paciente.getId() == null || !pacienteRepository.existsById(paciente.getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Paciente no encontrado");
         }
-        return pacienteRepository.save(paciente);
+
+        Paciente updatedPaciente = pacienteRepository.save(paciente);
+
+        // Notificar actualización
+        try {
+            NotificationRequestDTO notif = new NotificationRequestDTO();
+            notif.setPacienteId(updatedPaciente.getId());
+            notif.setTipo("ACTUALIZACION_ESTADO");
+            notif.setMensaje("Datos del paciente " + updatedPaciente.getNombre() + " actualizados");
+            notificationClient.createNotification(notif);
+            logger.info("Notificación de actualización enviada para paciente {}", updatedPaciente.getId());
+        } catch (Exception e) {
+            logger.warn("Fallo al notificar actualización pero paciente actualizado: {}", e.getMessage());
+        }
+
+        return updatedPaciente;
     }
 
     public void eliminarPaciente(Long id) {
